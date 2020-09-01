@@ -16,9 +16,11 @@ module.exports = (sequelize) => {
   });
 
   Volunteers.associate = ({
-    Events,
+    Events, Users, Tenants,
   }) => {
+    Volunteers.tenant = Volunteers.belongsTo(Tenants, { foreignKey: 'tenantId', onDelete: 'cascade' });
     Volunteers.event = Volunteers.belongsTo(Events, { foreignKey: 'eventId' });
+    Volunteers.user = Volunteers.belongsTo(Users, { foreignKey: 'userId' });
   };
 
   return Volunteers;

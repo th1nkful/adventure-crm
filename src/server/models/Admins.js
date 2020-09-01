@@ -18,5 +18,10 @@ module.exports = (sequelize) => {
     tableName: 'Admins',
   });
 
+  Admins.associate = ({ Tenants }) => {
+    Admins.tenant = Admins.belongsTo(Tenants, { foreignKey: 'tenantId', onDelete: 'cascade' });
+    Admins.manages = Admins.hasOne(Tenants, { foreignKey: 'ownerId', as: 'Owner' });
+  };
+
   return Admins;
 };

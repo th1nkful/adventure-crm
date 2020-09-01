@@ -13,8 +13,9 @@ module.exports = (sequelize) => {
   });
 
   Series.associate = ({
-    Events,
+    Events, Tenants,
   }) => {
+    Series.tenant = Series.belongsTo(Tenants, { foreignKey: 'tenantId', onDelete: 'cascade' });
     Series.events = Series.hasMany(Events, { foreignKey: 'seriesId' });
   };
 

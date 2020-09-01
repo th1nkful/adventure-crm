@@ -17,8 +17,9 @@ module.exports = (sequelize) => {
   });
 
   Competitors.associate = ({
-    Users, Races, Legs, Events,
+    Users, Races, Legs, Events, Tenants,
   }) => {
+    Competitors.tenant = Competitors.belongsTo(Tenants, { foreignKey: 'tenantId', onDelete: 'cascade' });
     Competitors.user = Competitors.belongsTo(Users, { foreignKey: 'userId' });
     Competitors.race = Competitors.belongsTo(Races, { foreignKey: 'raceId' });
     Competitors.leg = Competitors.belongsTo(Legs, { foreignKey: 'legId' });

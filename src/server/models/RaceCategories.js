@@ -4,8 +4,8 @@ module.exports = (sequelize) => {
   class RaceCategories extends Model {}
 
   RaceCategories.init({
-    date: {
-      type: DataTypes.DATE,
+    name: {
+      type: DataTypes.STRING,
     },
   }, {
     sequelize,
@@ -13,10 +13,10 @@ module.exports = (sequelize) => {
   });
 
   RaceCategories.associate = ({
-    Races, Competitors,
+    Races, Competitors, Tenants,
   }) => {
+    RaceCategories.tenant = RaceCategories.belongsTo(Tenants, { foreignKey: 'tenantId', onDelete: 'cascade' });
     RaceCategories.races = RaceCategories.hasMany(Races, { foreignKey: 'raceCategoryId' });
-    RaceCategories.competitors = RaceCategories.hasMany(Competitors, { foreignKey: 'raceCategoryId' });
   };
 
   return RaceCategories;

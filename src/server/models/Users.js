@@ -41,5 +41,12 @@ module.exports = (sequelize) => {
     tableName: 'Users',
   });
 
+  Users.associate = ({
+    Competitors, Volunteers,
+  }) => {
+    Users.competing = Users.hasMany(Competitors, { foreignKey: 'userId' });
+    Users.volunteering = Users.hasMany(Volunteers, { foreignKey: 'userId' });
+  };
+
   return Users;
 };
